@@ -21,4 +21,8 @@ class Product extends Model
         'price',
         'description',
     ];
+
+    public function showPrice(){
+        return number_format($this->price, 2);
+    }
 }

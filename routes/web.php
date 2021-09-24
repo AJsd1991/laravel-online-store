@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LandingPageController::class, 'index']);
+// landing page
+Route::get('/', [LandingPageController::class, 'index'])
+    ->name('landing-page');
+
+Route::get('/products', [StoreController::class, 'index'])
+->name('store');
+Route::get('/product/{product}', [StoreController::class, 'show'])
+->name('store.show');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
