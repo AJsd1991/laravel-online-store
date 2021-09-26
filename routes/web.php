@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 // landing page
 Route::get('/', [LandingPageController::class, 'index'])
     ->name('landing-page');
-
+    
+// products
 Route::get('/products', [StoreController::class, 'index'])
 ->name('store');
 Route::get('/product/{product}', [StoreController::class, 'show'])

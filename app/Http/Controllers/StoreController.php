@@ -52,7 +52,12 @@ class StoreController extends Controller
         // show one product
         $product = Product::where('slug', $slug)->firstOrFail();
 
-        return view('product')->with('product', $product);
+        $moreProducts = Product::where('slug', '!=' , $slug)->inRandomOrder()->take(4)->get();
+
+        return view('product')->with([
+            'product' => $product,
+            'moreProducts' => $moreProducts,
+        ]);
     }
 
     /**
