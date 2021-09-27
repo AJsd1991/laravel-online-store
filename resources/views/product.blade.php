@@ -137,14 +137,14 @@
 
     <div class="container px-6 mx-auto">
         <div class="md:flex md:items-center">
-            <div class="w-full h-64 md:w-1/2 lg:h-96">
+            <div class="w-full h-full md:w-1/2 lg:h-full">
                 <img class="object-cover w-full h-full max-w-lg mx-auto rounded-md"
-                    src="https://dkstatics-public.digikala.com/digikala-products/4e7983d9bd59ca7309ace03de0b1cf45e31ad42d_1618230895.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_80"
+                    src="{{ asset('storage/' . $product->image) }}"
                     alt="Nike Air">
             </div>
             <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
                 <h3 class="text-lg text-gray-700 uppercase">{{ $product->name }}</h3>
-                <span class="mt-3 text-gray-500">${{ $product->showPrice() }}</span>
+                <span class="mt-3 text-gray-500">تومان{{ $product->showPrice() }}</span>
                 <hr class="my-3">
                 <div class="mt-2">
                     <label class="text-sm text-gray-700" for="count">Count:</label>
@@ -187,6 +187,13 @@
                     </button>
                 </div>
             </div>
+        </div>
+        <div class="flex pt-6 pl-6">
+            @foreach (json_decode($product->images) as $image)
+                <img class="object-cover h-20 max-w-lg m-5 rounded-md w-30"
+                    src="{{ asset('storage/' . $image) }}"
+                    alt="Nike Air">
+            @endforeach
         </div>
         <div class="mt-16">
             <h3 class="text-2xl font-medium text-gray-600">More Products</h3>

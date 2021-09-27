@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use TCG\Voyager\Models\Category;
 
 class CreateProductsTable extends Migration
 {
@@ -23,6 +24,8 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->string('image');
             $table->text('images');
+
+            $table->foreignIdFor(Category::class);
 
             $table->timestamps();
         });
