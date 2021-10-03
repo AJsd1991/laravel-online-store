@@ -34,7 +34,7 @@
 
         <div class="flex items-center order-2 md:order-3" id="nav-content">
 
-            <a class="inline-block no-underline hover:text-black" href="#">
+            <a class="inline-block no-underline hover:text-black" href="{{ route('login') }}">
                 <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24">
                     <circle fill="none" cx="12" cy="7" r="3" />

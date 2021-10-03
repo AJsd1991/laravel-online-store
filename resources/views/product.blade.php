@@ -68,7 +68,7 @@
             @foreach($moreProducts as $product)
             <div class="w-full max-w-sm mx-auto overflow-hidden rounded-md shadow-md">
                 <div class="flex items-end justify-end w-full h-56 bg-cover"
-                    style="background-image: url('https://lh3.googleusercontent.com/proxy/jJXdsfiTvZ9qWINQ-gQhOnIWnz8ZVDIXw_fEsAMg_mj6ZLTpU5aJaA4QJYEJj7sC7b8NHPkboWdD9L5Ygyo0Z0TAZtbraSJmh_FVCAXvZWssLe49FoCMvbUeluN73RT-R7AXFvI')">
+                    style="background-image: url({{ asset('storage/'. str_replace('\\', '/', $product->image)) }})">
                     <button
                         class="p-2 mx-5 -mb-4 text-white bg-blue-600 rounded-full hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                         <svg class="w-5 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round"

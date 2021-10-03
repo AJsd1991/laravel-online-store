@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Slide;
 use Illuminate\Http\Request;
 use TCG\Voyager\Models\Category;
 
@@ -17,6 +18,8 @@ class StoreController extends Controller
     {   
         // show all categories
         $categories = Category::all();
+
+        
 
         if (request()->category) {
             $products = Product::with('category')->whereHas('category', function ($query){
@@ -36,6 +39,7 @@ class StoreController extends Controller
             'products' => $products,
             'categories' => $categories,
             'categoryName' => $categoryName,
+            
         ]);
     }
 
@@ -72,6 +76,8 @@ class StoreController extends Controller
         $product = Product::where('slug', $slug)->firstOrFail();
         // show all categories
         $categories = Category::all();
+
+        
 
         $moreProducts = Product::where('slug', '!=' , $slug)->inRandomOrder()->take(4)->get();
 

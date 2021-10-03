@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Slide;
 use Illuminate\Http\Request;
 use TCG\Voyager\Models\Category;
 
@@ -17,10 +18,12 @@ class LandingPageController extends Controller
     {
         $products = Product::inRandomOrder()->take(5)->get();
         $categories = Category::all();
+        $slides = Slide::all();
 
         return view('landing-page')->with([
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
+            'slides' => $slides,
         ]);
     }
 
