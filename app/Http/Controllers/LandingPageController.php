@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use TCG\Voyager\Models\Category;
 
 class LandingPageController extends Controller
 {
@@ -15,8 +16,12 @@ class LandingPageController extends Controller
     public function index()
     {
         $products = Product::inRandomOrder()->take(5)->get();
+        $categories = Category::all();
 
-        return view('landing-page')->with('products', $products);
+        return view('landing-page')->with([
+            'products' => $products,
+            'categories' => $categories
+        ]);
     }
 
     /**

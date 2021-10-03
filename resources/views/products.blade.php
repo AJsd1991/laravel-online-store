@@ -10,7 +10,7 @@
             <div class="container flex flex-wrap items-center justify-between w-full px-2 py-3 mx-auto mt-0">
 
                 <a class="text-xl font-bold tracking-wide text-gray-800 no-underline uppercase hover:no-underline " href="#">
-            Store
+            {{ $categoryName }}
         </a>
 
                 <div class="flex items-center" id="store-nav-content">
@@ -34,7 +34,7 @@
         @foreach ($products as $product)
             <div class="flex flex-col w-full p-6 md:w-1/3 xl:w-1/4">
                 <a href="{{ route('store.show', ['product' => $product->slug]) }}">
-                    <img class="hover:grow hover:shadow-lg" src="https://dkstatics-public.digikala.com/digikala-products/123f8560637d5909f1437a67b06372b24ab42ea4_1629012496.jpg?x-oss-process=image/resize,m_lfit,h_350,w_350/quality,q_60">
+                    <img class="hover:grow hover:shadow-lg" src="{{ asset('storage/'. $product->image) }}">
                     <div class="flex items-center justify-between pt-3">
                         <p class="">{{ $product->name }}</p>
                         <svg class="w-6 h-6 text-gray-500 fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
