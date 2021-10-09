@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use TCG\Voyager\Models\Category;
 
 class Product extends Model
 {
@@ -24,6 +23,9 @@ class Product extends Model
         'details',
         'price',
         'description',
+        'image',
+        'images',
+        'category_id',
     ];
 
     public function showPrice(){

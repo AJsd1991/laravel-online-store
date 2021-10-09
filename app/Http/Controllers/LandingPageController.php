@@ -18,7 +18,7 @@ class LandingPageController extends Controller
     {
         $products = Product::inRandomOrder()->take(5)->get();
         $categories = Category::all();
-        $slides = Slide::all();
+        $slides = Slide::query()->where('status', true)->get();
 
         return view('landing-page')->with([
             'products' => $products,

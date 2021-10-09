@@ -27,6 +27,13 @@ class ProductFactory extends Factory
             'details' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'price' => $this->faker->randomNumber(),
             'description' => $this->faker->realText($maxNbChars = 200, $indexSize = 2),
+            'image' => $this->faker->imageUrl(300, 300),
+            'images' => $this->faker->randomElement([
+                'house',
+                'shop',
+                'library',
+            ]),
+            'category_id' => $this->faker->numberBetween(1, 3),
         ];
     }
 }

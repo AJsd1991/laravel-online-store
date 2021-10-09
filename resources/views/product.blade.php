@@ -6,7 +6,7 @@
     <div class="md:flex md:items-center">
         <div class="w-full h-full md:w-1/2 lg:h-full">
             <img class="object-cover w-full h-full max-w-lg mx-auto rounded-md"
-                src="{{ asset('storage/' . $product->image) }}"
+                src="{{ url($product->image) }}"
                 alt="Nike Air">
         </div>
         <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
@@ -56,11 +56,11 @@
         </div>
     </div>
     <div class="flex pt-6 pl-6">
-        @foreach (json_decode($product->images) as $image)
+        {{-- @foreach (json_decode($product->images) as $image)
             <img class="object-cover h-20 max-w-lg m-5 rounded-md w-30"
                 src="{{ asset('storage/' . $image) }}"
                 alt="Nike Air">
-        @endforeach
+        @endforeach --}}
     </div>
     <div class="mt-16">
         <h3 class="text-2xl font-medium text-gray-600">More Products</h3>
@@ -68,7 +68,7 @@
             @foreach($moreProducts as $product)
             <div class="w-full max-w-sm mx-auto overflow-hidden rounded-md shadow-md">
                 <div class="flex items-end justify-end w-full h-56 bg-cover"
-                    style="background-image: url({{ asset('storage/'. str_replace('\\', '/', $product->image)) }})">
+                    style="background-image: url({{ $product->image }})">
                     <button
                         class="p-2 mx-5 -mb-4 text-white bg-blue-600 rounded-full hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                         <svg class="w-5 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round"

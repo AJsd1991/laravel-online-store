@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <meta http-equiv="refresh" content="30" />
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,7 @@
     <meta name="description" content="Free open source Tailwind CSS Store template">
     <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
 
-    <link href="{{ asset("css/app.css")}}" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
     <!--Replace with your tailwind.css once created-->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
 
@@ -41,9 +40,10 @@
             transition: opacity 0.6s ease-out;
         }
         
-        #carousel-1:checked ~ .control-1,
-        #carousel-2:checked ~ .control-2,
-        #carousel-3:checked ~ .control-3 {
+        @foreach ($slides as $slide)
+        #carousel-{{ $loop->index + 1 }}:checked ~ .control-{{ $loop->index + 1 }},
+        @endforeach
+        #carousel-{{ $slides->count() }}:checked ~ .control-{{ $slides->count() }} {
             display: block;
         }
         
@@ -59,9 +59,10 @@
             z-index: 10;
         }
         
-        #carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
-        #carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
-        #carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
+        @foreach ($slides as $slide)
+        #carousel-{{ $loop->index + 1 }}:checked ~ .control-{{ $loop->index + 1 }} ~ .carousel-indicators li:nth-child({{ $loop->index + 1 }}) .carousel-bullet,
+        @endforeach
+        #carousel-{{ $slides->count() }}:checked ~ .control-{{ $slides->count() }} ~ .carousel-indicators li:nth-child({{ $slides->count() }}) .carousel-bullet {
             color: #000;
             /*Set to match the Tailwind colour you want the active one to be */
         }
@@ -76,13 +77,13 @@
 
     @include('layouts.navbar')
 
-
+    <!--Sidebar-->
     <div class="container relative mx-auto carousel" style="max-width:1600px;">
         <div class="relative w-full overflow-hidden carousel-inner">
             @foreach ($slides as $slide)
-            <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden="" checked="checked">
+            <input class="carousel-open" type="radio" id="carousel-{{ $loop->index + 1 }}" name="carousel" aria-hidden="true" hidden="" checked="{{  $loop->index == 0 ? 'checked' : ''}}">
             <div class="absolute opacity-0 carousel-item" style="height:50vh;">
-                <div class="flex block w-full h-full pt-6 mx-auto bg-right bg-cover md:pt-0 md:items-center" style="background-image: url('{{ asset('storage/'.str_replace('\\', '/', $slide->image)) }}');">
+                <div class="flex block w-full h-full pt-6 mx-auto bg-right bg-cover md:pt-0 md:items-center" style="background-image: url('{{ url($slide->image) }}');">
 
                     <div class="container mx-auto">
                         <div class="flex flex-col items-center w-full px-6 tracking-wide lg:w-1/2 md:ml-16 md:items-start">
@@ -93,22 +94,19 @@
 
                 </div>
             </div>
-            <label for="carousel-3" class="absolute inset-y-0 left-0 z-10 hidden w-10 h-10 my-auto ml-2 text-3xl font-bold leading-tight text-center text-black bg-white rounded-full cursor-pointer prev control-1 md:ml-10 hover:text-white hover:bg-gray-900">‹</label>
-            <label for="carousel-2" class="absolute inset-y-0 right-0 z-10 hidden w-10 h-10 my-auto mr-2 text-3xl font-bold leading-tight text-center text-black bg-white rounded-full cursor-pointer next control-1 md:mr-10 hover:text-white hover:bg-gray-900">›</label>                
+
+            <label for="carousel-{{ $loop->index == 0 ? $slides->count() : $loop->index }}" class="absolute inset-y-0 left-0 z-10 hidden w-10 h-10 my-auto ml-2 text-3xl font-bold leading-tight text-center text-black bg-white rounded-full cursor-pointer prev control-{{ $loop->index + 1 }} md:ml-10 hover:text-white hover:bg-gray-900">‹</label>
+            <label for="carousel-{{ $loop->index == $slides->count() - 1 ? 1 : $loop->index + 2 }}" class="absolute inset-y-0 right-0 z-10 hidden w-10 h-10 my-auto mr-2 text-3xl font-bold leading-tight text-center text-black bg-white rounded-full cursor-pointer next control-{{ $loop->index + 1 }} md:mr-10 hover:text-white hover:bg-gray-900">›</label>                
             @endforeach
 
 
             <!-- Add additional indicators for each slide-->
             <ol class="carousel-indicators">
+                @foreach($slides as $slide)
                 <li class="inline-block mr-3">
-                    <label for="carousel-1" class="block text-4xl text-gray-400 cursor-pointer carousel-bullet hover:text-gray-900">•</label>
+                    <label for="carousel-{{ $loop->index + 1 }}" class="block text-4xl text-gray-400 cursor-pointer carousel-bullet hover:text-gray-900">•</label>
                 </li>
-                <li class="inline-block mr-3">
-                    <label for="carousel-2" class="block text-4xl text-gray-400 cursor-pointer carousel-bullet hover:text-gray-900">•</label>
-                </li>
-                <li class="inline-block mr-3">
-                    <label for="carousel-3" class="block text-4xl text-gray-400 cursor-pointer carousel-bullet hover:text-gray-900">•</label>
-                </li>
+                @endforeach
             </ol>
 
         </div>
