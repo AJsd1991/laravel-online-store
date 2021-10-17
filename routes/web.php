@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\StoreController;
+use App\Service\Storage\Contracts\StorageInterface;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use TCG\Voyager\Facades\Voyager;
 
 /*
@@ -17,23 +19,48 @@ use TCG\Voyager\Facades\Voyager;
 */
 
 // landing page
-Route::get('/', [LandingPageController::class, 'index'])
-    ->name('landing-page');
+Route::get('/', App\Http\Controllers\HomeController::class)
+    ->name('home.landing');
     
 // products
 Route::get('/products', [StoreController::class, 'index'])
-->name('store');
+->name('store.index');
 Route::get('/product/{product}', [StoreController::class, 'show'])
 ->name('store.show');
 
-
+// Breeze
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
-
+// Voyager
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+});
+
+// cart
+Route::get('cart/add/{product}', [CartController::class, 'add'])
+->name('cart.add');
+Route::get('cart', [CartController::class, 'index'])
+->name('cart.index');
+Route::post('cart/delete/{product}', [CartController::class, 'destroy'])
+->name('cart.destroy');
+Route::post('cart/update/{product}', [CartController::class, 'update'])
+->name('cart.update');
+Route::get('cart/checkout', [CartController::class, 'checkoutForm'])
+->name('cart.checkout.form');
+Route::post('cart/checkout', [CartController::class, 'checkout'])
+->name('cart.checkout');
+
+Route::get('test', function(){
+    $sessionStorage = resolve(StorageInterface::class);
+    $sessionStorage->set('product', 8);
+    $sessionStorage->set('price', 2500);
+    $sessionStorage->set('status', 'pending');
+    // $sessionStorage->clear();
+    dump($sessionStorage->count());
+    // dd($sessionStorage->all());
+
 });

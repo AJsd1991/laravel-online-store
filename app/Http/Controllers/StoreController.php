@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Slide;
+use App\Service\Cart\Cart;
+use App\Service\Storage\Contracts\StorageInterface;
 use Illuminate\Http\Request;
 use TCG\Voyager\Models\Category;
 
@@ -35,7 +37,7 @@ class StoreController extends Controller
             $categoryName = 'All Products';
         }
 
-        return view('products')->with([
+        return view('products.index')->with([
             'products' => $products,
             'categories' => $categories,
             'categoryName' => $categoryName,
@@ -81,7 +83,7 @@ class StoreController extends Controller
 
         $moreProducts = Product::where('slug', '!=' , $slug)->inRandomOrder()->take(4)->get();
 
-        return view('product')->with([
+        return view('products.show')->with([
             'product' => $product,
             'moreProducts' => $moreProducts,
             'categories' => $categories,

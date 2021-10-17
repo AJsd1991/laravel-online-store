@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
-
-    protected $dates = ['deleted_at'];
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -28,12 +26,26 @@ class Product extends Model
         'category_id',
     ];
 
+    public function hasStock(int $quantity)
+    {
+        return $this->stock >= $quantity;
+    }
+    
     public function showPrice(){
         return number_format($this->price, 2);
+    }
+
+    public function totalPrice(int $quantity){
+        return number_format($this->price * $quantity, 2);
     }
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Order::class)->withPivot('quantity');
     }
 }
