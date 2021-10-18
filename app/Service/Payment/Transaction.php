@@ -5,7 +5,11 @@ namespace App\Service\Payment;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Service\Cart\Cart;
+use App\Service\Payment\Gateways\GatewayInterface;
+use App\Service\Payment\Gateways\Pasargad;
+use App\Service\Payment\Gateways\Saman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class Transaction
@@ -21,13 +25,51 @@ class Transaction
 
     public function checkout()
     {
+        DB::beginTransaction();
+
         $order = $this->makeOrder();
 
-        $this->makePayment($order);
+        $payment = $this->makePayment($order);
+
+        DB::commit();
+
+        if ($payment->isONline()) {
+            return $this->gatewayFactory()->pay($order);
+        }
+
+        $this->normalizeQuantity($order);
 
         $this->cart->clear();
-
+        
         return $order;
+    }
+
+    public function verify()
+    {
+        $result = $this->gatewayFactory()->verify($this->request);
+
+        if ($result['status'] === GatewayInterface::TRANSACTION_FAILED) return false;
+
+        $this->confirmPayment($result);
+
+        $this->normalizeQuantity($result['order']);
+
+        return true;
+    }
+
+    private function confirmPayment($result)
+    {
+        return $result['order']->payment->confirm($result['refNum'], $result['gateway']);
+    }
+
+    private function gatewayFactory()
+    {
+        $gateway = [
+            'saman' => Saman::class,
+            'pasargad' => Pasargad::class
+        ][$this->request->gateway];
+
+        return resolve($gateway);
     }
 
     private function makeOrder()
@@ -45,12 +87,13 @@ class Transaction
 
     private function makePayment($order)
     {
-        $order = Payment::create([
+        $payment = Payment::create([
             'order_id' => $order->id,
             'method' => $this->request->method,
             'amount' => $order->amount,
         ]);
-        
+
+        return $payment;        
     }
 
     private function products()
@@ -62,5 +105,12 @@ class Transaction
         }
 
         return $products;
+    }
+
+    private function normalizeQuantity($order)
+    {
+        foreach ($order->products as $product) {
+            $product->decrementStock($product->pivot->quantity);
+        }
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StoreController;
 use App\Service\Storage\Contracts\StorageInterface;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use TCG\Voyager\Facades\Voyager;
 
 /*
@@ -54,6 +54,12 @@ Route::get('cart/checkout', [CartController::class, 'checkoutForm'])
 Route::post('cart/checkout', [CartController::class, 'checkout'])
 ->name('cart.checkout');
 
+// payment
+Route::post('payment/{gateway}/callback', [PaymentController::class, 'verify'])
+->name('payment.verify');
+
+
+// test
 Route::get('test', function(){
     $sessionStorage = resolve(StorageInterface::class);
     $sessionStorage->set('product', 8);

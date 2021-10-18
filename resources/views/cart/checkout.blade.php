@@ -9,8 +9,10 @@
                     Costomer Information</li>
                 <li class="px-3 py-3 list-none border rounded-sm" style='border-bottom-width:0'>Name :
                     {{ Auth::user()->name }}</li>
-                <li class="px-3 py-3 list-none border rounded-sm" style='border-bottom-width:0'>Email :
-                    {{ Auth::user()->email }}</li>
+                <li class="px-3 py-3 list-none border rounded-sm" style='border-bottom-width:0'>Phone Number :
+                    {{ Auth::user()->phone_number }}</li>
+                <li class="px-3 py-3 list-none border rounded-sm" style='border-bottom-width:0'>Address :
+                    {{ Auth::user()->address }}</li>
             </ul>
 
             <form action="{{ route('cart.checkout') }}" id='checkout-form' method="post">

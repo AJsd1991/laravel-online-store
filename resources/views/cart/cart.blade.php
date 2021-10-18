@@ -71,6 +71,7 @@
                                             <div class="relative flex flex-row w-full h-8">
                                                 <input name="quantity" type="number" value="{{ $item->quantity }}"
                                                     min="1"
+                                                    max="{{ $item->stock }}"
                                                     class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
                                             </div>
                                         </div>

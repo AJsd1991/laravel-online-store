@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\QuantityExceededException;
-use App\Models\Category;
 use App\Models\Product;
 use App\Service\Cart\Cart;
 use App\Service\Payment\Transaction;
