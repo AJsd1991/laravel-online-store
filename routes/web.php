@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StoreController;
+use App\Models\Coupon;
 use App\Service\Storage\Contracts\StorageInterface;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
@@ -58,9 +60,17 @@ Route::post('cart/checkout', [CartController::class, 'checkout'])
 Route::post('payment/{gateway}/callback', [PaymentController::class, 'verify'])
 ->name('payment.verify');
 
+// coupon
+Route::post('coupon', [CouponController::class, 'store'])
+->name('coupons.store');
+Route::get('coupon', [CouponController::class, 'remove'])
+->name('coupons.remove');
+
 
 // test
 Route::get('test', function(){
+    session()->forget('coupon');
+    return back();
     $sessionStorage = resolve(StorageInterface::class);
     $sessionStorage->set('product', 8);
     $sessionStorage->set('price', 2500);

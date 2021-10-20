@@ -5,6 +5,7 @@ namespace App\Service\Payment;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Service\Cart\Cart;
+use App\Service\Cost\Contracts\CostInterface;
 use App\Service\Payment\Gateways\GatewayInterface;
 use App\Service\Payment\Gateways\Pasargad;
 use App\Service\Payment\Gateways\Saman;
@@ -16,11 +17,13 @@ class Transaction
 {
     private $request;
     private $cart;
+    private $cost;
 
-    public function __construct(Request $request, Cart $cart)
+    public function __construct(Request $request, Cart $cart, CostInterface $cost)
     {
         $this->request = $request;
         $this->cart = $cart;
+        $this->cost = $cost;
     }
 
     public function checkout()
@@ -34,13 +37,14 @@ class Transaction
         DB::commit();
 
         if ($payment->isONline()) {
-            return $this->gatewayFactory()->pay($order);
+            return $this->gatewayFactory()->pay($order, $this->cart->subTotal());
         }
 
         $this->normalizeQuantity($order);
 
         $this->cart->clear();
         
+        session()->forget('coupon');
         return $order;
     }
 
@@ -90,7 +94,7 @@ class Transaction
         $payment = Payment::create([
             'order_id' => $order->id,
             'method' => $this->request->method,
-            'amount' => $order->amount,
+            'amount' => $this->cost->getTotalCosts(),
         ]);
 
         return $payment;        

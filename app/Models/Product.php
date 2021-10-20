@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Service\Discount\DiscountCalculator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
@@ -52,5 +52,17 @@ class Product extends Model
     public function decrementStock(int $count)
     {
         return $this->decrement('stock', $count);
+    }
+
+    public function getPriceAttribute($price)
+    {
+        $coupons = $this->category->validCoupons();
+        if ($coupons->isNotEmpty()) {
+            $discountCalculator = resolve(DiscountCalculator::class);
+            
+            return $discountCalculator->discountedPrice($coupons->first(), $price);
+        }
+
+        return $price;
     }
 }

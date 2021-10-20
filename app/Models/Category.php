@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Service\Discount\Coupon\Traits\Couponable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use TCG\Voyager\Models\Category as ModelsCategory;
 
 class Category extends ModelsCategory
 {
-    use HasFactory;
+    use HasFactory, Couponable;
 
     public function products()
     {
