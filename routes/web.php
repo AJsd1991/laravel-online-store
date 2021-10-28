@@ -69,6 +69,8 @@ Route::get('coupon', [CouponController::class, 'remove'])
 
 // test
 Route::get('test', function(){
+    return hash_equals(session()->token(), '3QmZFztS0MMiSYCu1q2glRy4THnFm5cNQq0ob34w');
+    session()->all();
     session()->forget('coupon');
     return back();
     $sessionStorage = resolve(StorageInterface::class);

@@ -25,22 +25,6 @@
 
     <div class="flex justify-between pt-4 border-b">
         <div class="m-2 text-lg font-bold text-center text-gray-800 lg:px-4 lg:py-2 lg:text-xl">
-            New Subtotal
-        </div>
-        <div class="m-2 font-bold text-center text-gray-900 lg:px-4 lg:py-2 lg:text-lg">
-            14,882.75€
-        </div>
-    </div>
-    <div class="flex justify-between pt-4 border-b">
-        <div class="m-2 text-lg font-bold text-center text-gray-800 lg:px-4 lg:py-2 lg:text-xl">
-            Tax
-        </div>
-        <div class="m-2 font-bold text-center text-gray-900 lg:px-4 lg:py-2 lg:text-lg">
-            2,976.55€
-        </div>
-    </div>
-    <div class="flex justify-between pt-4 border-b">
-        <div class="m-2 text-lg font-bold text-center text-gray-800 lg:px-4 lg:py-2 lg:text-xl">
             Total
         </div>
         <div class="m-2 font-bold text-center text-gray-900 lg:px-4 lg:py-2 lg:text-lg">

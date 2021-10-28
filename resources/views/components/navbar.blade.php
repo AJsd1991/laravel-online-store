@@ -1,28 +1,20 @@
 @inject('cart', 'App\Service\Cart\Cart' )
 
 <nav id="header" class="top-0 z-30 w-full py-1">
-    <div class="container flex flex-wrap items-center justify-between w-full px-6 py-3 mx-auto mt-0">
-
-        <label for="menu-toggle" class="block cursor-pointer md:hidden">
-            <svg class="text-gray-900 fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                <title>menu</title>
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
-            </svg>
-        </label>
-        <input class="hidden" type="checkbox" id="menu-toggle" />
-
-        <div class="order-3 hidden w-full md:flex md:items-center md:w-auto md:order-2" id="menu">
-            <nav>
-                <ul class="items-center justify-between pt-4 text-base text-gray-700 md:flex md:pt-0">
-                    @foreach ($categories as $category)
-                    <li><a class="inline-block px-4 py-2 no-underline hover:text-black hover:underline"
-                            href="{{ route('store.index', ['category' => $category->slug]) }}">{{ $category->name }}</a>
-                    </li>
-                @endforeach
-                </ul>
-            </nav>
-        </div>
-
+    <div class="container flex flex-wrap items-center justify-between w-full px-6 pt-3 mx-auto mt-0">
+        <div class="relative order-2 w-1/2 pt-2 text-gray-600 md:mr-96 md:order-2">
+            <input class="h-10 px-5 pr-16 text-sm bg-white border-2 border-gray-300 rounded-lg md:w-full focus:outline-none"
+              type="search" name="search" placeholder="Search">
+            <button type="submit" class="absolute top-0 right-0 mt-5 mr-4">
+              <svg class="w-4 h-4 text-gray-600 fill-current" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+                width="512px" height="512px">
+                <path
+                  d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+              </svg>
+            </button>
+          </div>
         <div class="order-1 md:order-1">
             <a class="flex items-center text-xl font-bold tracking-wide text-gray-800 no-underline hover:no-underline " href="{{ route('home.landing') }}">
                 <svg class="mr-2 text-gray-800 fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -64,4 +56,82 @@
 
         </div>
     </div>
+    <div class="container flex flex-wrap items-start justify-between w-full px-6 py-3 mx-auto mt-0">
+
+        <div>
+            <ul class="flex flex-wrap items-center w-full h-10">
+                <li class="relative block" x-data="{showChildren:false}" @click.away="showChildren=false">
+                    <a href="#" class="flex items-center h-10 px-0 mx-1 leading-10 no-underline transition-colors duration-100 rounded cursor-pointer hover:no-underline hover:bg-gray-100" @click.prevent="showChildren=!showChildren">
+                        <span class="mr-3 text-xl"> <svg class="text-gray-900 fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                            <title>menu</title>
+                            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+                        </svg> </span>
+                        <span>All Categories</span>
+                        <span class="ml-2"> <i class="mdi mdi-chevron-down"></i> </span>
+                    </a>
+                    <div class="absolute left-0 top-auto z-30 w-56 min-w-full mt-1 text-sm bg-white border border-gray-300 rounded shadow-md" x-show="showChildren" x-transition:enter="transition ease duration-300 transform" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease duration-300 transform" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4" style="display: none;">
+                        <span class="absolute top-0 left-0 w-3 h-3 ml-6 -mt-1 transform rotate-45 bg-white border"></span>
+                        <div class="relative z-10 w-full py-1 bg-white rounded">
+                            <ul class="list-reset">
+                                @foreach($categories as $category)
+                                <li class="relative" x-data="{showChildren:false}" @mouseleave="showChildren=false" @mouseenter="showChildren=true">
+                                    <a href="{{ route('store.index', ['category' => $category->slug]) }}" class="flex items-start w-full px-4 py-2 no-underline transition-colors duration-100 cursor-pointer hover:bg-gray-100 hover:no-underline">
+                                        <span class="flex-1">{{ $category->name }}</span>
+                                        <span class="ml-2"> <i class="mdi mdi-chevron-right"></i> </span>
+                                    </a>
+                                    <div class="absolute top-0 z-30 w-56 min-w-full mt-1 text-sm bg-white border border-gray-300 rounded shadow-md inset-l-full" x-show="showChildren" x-transition:enter="transition ease duration-300 transform" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease duration-300 transform" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4" style="display: none;">
+                                        <span class="absolute top-0 left-0 w-3 h-3 mt-2 -ml-1 transform rotate-45 bg-white border"></span>
+                                        <div class="relative z-10 w-full py-1 bg-white rounded">
+                                            <ul class="list-reset">
+                                                @foreach($category->children as $subCategory)
+                                                <li>
+                                                    <a href="#" class="flex items-start w-full px-4 py-2 no-underline transition-colors duration-100 cursor-pointer hover:bg-gray-100 hover:no-underline"> <span class="flex-1">{{ $subCategory->name }}</span> </a>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="flex items-center order-2" id="nav-content">
+            <a class="inline-block pl-3 no-underline hover:text-black" href="{{ route('cart.index') }}">
+                Please Select Your Address
+                    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+            </a>
+
+        </div>
+    </div>
 </nav>
+
+<!-- component -->
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+<style>
+@import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
+/*
+module.exports = {
+    plugins: [
+        require('tailwindcss-inset')({
+            insets: {
+                full: '100%'
+            }
+        })
+    ]
+};
+*/
+.inset-l-full {
+    left: 100%;
+}
+</style>
+
+

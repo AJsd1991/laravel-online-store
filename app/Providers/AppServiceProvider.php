@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
             return $discountCast;
         });
 
-        $categories = Category::all();
+        $categories = Category::with('children')->where('parent_id', null)->get();
         View::share('categories', $categories);
     }
 }

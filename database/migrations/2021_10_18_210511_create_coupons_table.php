@@ -20,8 +20,8 @@ class CreateCouponsTable extends Migration
             $table->tinyInteger('percent');
             $table->integer('limit');
             $table->date('expire_time');
-            $table->bigInteger('couponable_id');
-            $table->string('couponable_type');
+			
+            $table->morphs('couponable');
 
             $table->timestamps();
         });
