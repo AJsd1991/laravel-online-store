@@ -10,37 +10,60 @@
     <meta name="keywords"
         content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
 
-    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!--Replace with your tailwind.css once created-->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
 
-        <style>
-            .work-sans {
-                font-family: 'Work Sans', sans-serif;
-            }
-                    
-            #menu-toggle:checked + #menu {
-                display: block;
-            }
-            
-            .hover\:grow {
-                transition: all 0.3s;
-                transform: scale(1);
-            }
-            
-            .hover\:grow:hover {
-                transform: scale(1.02);
-            }
-        </style>
-    </head>
-    <body class="text-base leading-normal tracking-normal text-gray-600 bg-white work-sans">
-        
-        <!--Nav-->
-        <x-navbar />
+    <style>
+        .work-sans {
+            font-family: 'Work Sans', sans-serif;
+        }
 
-        {{ $slot }}
+        #menu-toggle:checked+#menu {
+            display: block;
+        }
 
-        <x-footer />
-        
-    </body>
+        .hover\:grow {
+            transition: all 0.3s;
+            transform: scale(1);
+        }
+
+        .hover\:grow:hover {
+            transform: scale(1.02);
+        }
+
+        /* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+        .svg-icon {
+            width: 1em;
+            height: 1em;
+        }
+
+        .svg-icon path,
+        .svg-icon polygon,
+        .svg-icon rect {
+            fill: #4691f6;
+        }
+
+        .svg-icon circle {
+            stroke: #4691f6;
+            stroke-width: 1;
+        }
+
+    </style>
+</head>
+
+<body class="text-base leading-normal tracking-normal text-gray-600 bg-white work-sans">
+
+    <!--Nav-->
+    <x-navbar />
+
+    {{ $slot }}
+
+    <x-footer />
+
+</body>
+
 </html>

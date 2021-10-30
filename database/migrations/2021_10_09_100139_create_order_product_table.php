@@ -21,7 +21,6 @@ class CreateOrderProductTable extends Migration
             $table->foreignIdFor(Product::class);
             $table->foreignIdFor(Order::class);
             
-            $table->timestamps();
         });
     }
 

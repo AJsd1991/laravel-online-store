@@ -29,11 +29,7 @@ class ProductFactory extends Factory
             'stock' => $this->faker->numberBetween(3,50),
             'description' => $this->faker->realText($maxNbChars = 200, $indexSize = 2),
             'image' => $this->faker->imageUrl(300, 300),
-            'images' => $this->faker->randomElement([
-                'house',
-                'shop',
-                'library',
-            ]),
+            'images' => "[\"" . $this->faker->imageUrl(300, 300) . "\",\"" . $this->faker->imageUrl(300, 300) . "\",\"" . $this->faker->imageUrl(300, 300). "\"]",
             'category_id' => $this->faker->numberBetween(1, 3),
         ];
     }

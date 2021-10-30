@@ -69,4 +69,12 @@ class Product extends Model
 
         return $price;
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['q'] ?? false, fn($query, $q) =>
+            $query
+                ->where('name', 'like', '%' . $q . '%')
+                ->orWhere('details', 'like', '%' . $q . '%'));
+    }
 }

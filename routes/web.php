@@ -30,10 +30,20 @@ Route::get('/products', [StoreController::class, 'index'])
 Route::get('/product/{product}', [StoreController::class, 'show'])
 ->name('store.show');
 
-// Breeze
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// dashboard
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'dashboard',
+], function () {
+
+    Route::view('/', 'users.dashboard')->name('dashboard');
+    Route::resource('/my-orders', App\Http\Controllers\User\OrderController::class)
+    ->only('index', 'show');
+
+    // Route::resource('posts', App\Http\Controllers\PostController::class)
+    // ->except('show');
+
+});
 
 require __DIR__.'/auth.php';
 
@@ -66,6 +76,9 @@ Route::post('coupon', [CouponController::class, 'store'])
 Route::get('coupon', [CouponController::class, 'remove'])
 ->name('coupons.remove');
 
+// search
+Route::get('search', App\Http\Controllers\SearchController::class)
+->name('search');
 
 // test
 Route::get('test', function(){
