@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StoreController;
@@ -79,6 +80,9 @@ Route::get('coupon', [CouponController::class, 'remove'])
 // search
 Route::get('search', App\Http\Controllers\SearchController::class)
 ->name('search');
+
+// product comment
+Route::post('products/{product:slug}/comment', [CommentController::class, 'store']);
 
 // test
 Route::get('test', function(){

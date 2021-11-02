@@ -93,13 +93,13 @@
             <div class="mt-16">
                 <h3 class="text-2xl font-medium text-gray-600">More Products</h3>
                 <div class="grid grid-cols-1 gap-6 mt-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    @foreach ($moreProducts as $product)
+                    @foreach ($moreProducts as $item)
                         <div class="w-full max-w-sm mx-auto overflow-hidden rounded-md shadow-md">
                             <div class="flex items-end justify-end w-full h-56 bg-cover"
-                                style="background-image: url({{ $product->image }})">
+                                style="background-image: url({{ $item->image }})">
                                 <button
                                     class="p-2 mx-5 -mb-4 text-white bg-blue-600 rounded-full hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                    <a href="{{ route('cart.add', ['product' => $product->id]) }}">
+                                    <a href="{{ route('cart.add', ['product' => $item->id]) }}">
                                         <svg class="w-5 h-5" fill="none" stroke-linecap="round"
                                             stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
                                             stroke="currentColor">
@@ -110,10 +110,10 @@
                                     </a>
                                 </button>
                             </div>
-                            <a href="{{ route('store.show', [$product->slug]) }}">
+                            <a href="{{ route('store.show', [$item->slug]) }}">
                                 <div class="px-5 py-3">
-                                    <h3 class="text-gray-700 uppercase">{{ $product->name }}</h3>
-                                    <span class="mt-2 text-gray-500">${{ $product->showPrice() }}</span>
+                                    <h3 class="text-gray-700 uppercase">{{ $item->name }}</h3>
+                                    <span class="mt-2 text-gray-500">${{ $item->showPrice() }}</span>
                                 </div>
                             </a>
                         </div>
@@ -121,6 +121,22 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section class="col-span-8 col-start-5 pr-64 my-10 ml-48 space-y-6 mr-96">
+        <h3 class="text-lg font-bold">Customer's Comments ({{ count($product->comments) }})</h3>
+        <hr>
+        @include ('products.add-comment')
+        @forelse ($product->comments as $comment)
+            <x-comment :comment="$comment"/>
+        @empty
+        <p class="font-semibold">
+            <a href="/register" class="text-blue-400 hover:underline">Register</a> or
+            <a href="/login" class="text-blue-400 hover:underline">log in</a> to leave a comment.
+        </p>
+        <p>
+            There is no Comment yet!
+        </p>
+        @endforelse
     </section>
 
 </x-store-layout>
