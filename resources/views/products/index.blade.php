@@ -32,7 +32,7 @@
             @foreach ($products as $product)
                 <div class="flex flex-col w-full p-6 md:w-1/3 xl:w-1/4">
                     <a href="{{ route('store.show', ['product' => $product->slug]) }}">
-                        <img class="hover:grow hover:shadow-lg" src="{{ url($product->image) }}">
+                        <img class="hover:grow hover:shadow-lg" src="@if (file_exists('storage/' . $product->image)) {{ asset('storage/' . $product->image) }} @else {{ $product->image }} @endif">
                         <div class="flex items-center justify-between pt-3">
                             <p class="">{{ $product->name }}</p>
                             <svg class="w-6 h-6 text-gray-500 fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -45,9 +45,13 @@
             @endforeach
     
     
-            </div>
-    
+        </div>
+        <div class="container pt-4 pb-12 mx-auto">
+            {{ $products->appends(request()->except('page'))->links() }}
+        </div>
+            
     </section>
+
         
     </x-store-layout>
     

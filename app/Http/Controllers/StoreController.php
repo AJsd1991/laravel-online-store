@@ -18,28 +18,26 @@ class StoreController extends Controller
      */
     public function index()
     {   
-        // show all categories
-        $categories = Category::all();
+
 
         
 
         if (request()->category) {
             $products = Product::with('category')->whereHas('category', function ($query){
                 $query->where('slug', request()->category);
-            })->get();
+            })->paginate(12);
 
-            $categoryName = $categories->where('slug', request()->category)->first()->name;
+            $categoryName = Category::query()->where('slug', request()->category)->first()->name;
 
 
         } else {
             // show all products
-            $products = Product::inRandomOrder()->take(10)->get();
+            $products = Product::latest()->paginate(12);
             $categoryName = 'All Products';
         }
 
         return view('products.index')->with([
             'products' => $products,
-            'categories' => $categories,
             'categoryName' => $categoryName,
             
         ]);

@@ -19,7 +19,7 @@
                                     <p>Total Amount : <span class="font-bold">${{ $order->amount }}</span></p>
                                 </div>
                                 <div class="flex items-center">
-                                    <a href="#" class="pr-2 text-blue-500">
+                                    <a href="{{ route('my-orders.show', $order) }}" class="pr-2 text-blue-500">
                                         Order Details
                                     </a>
                                     <svg class="svg-icon" viewBox="0 0 20 20">
@@ -36,14 +36,17 @@
                                 <div class="flex gap-4 mt-4 auto-rows-auto">
                                     @foreach ($order->products as $product)
                                         <a href="{{ route('store.show', ['product' => $product->slug]) }}">
-                                            <img src="{{ $product->image }}" alt="{{ $product->name }}" width="100"
+                                            <img src="@if (file_exists('storage/' . $product->image)) {{ asset('storage/' . $product->image) }} @else {{ $product->image }} @endif" alt="{{ $product->name }}" width="100"
                                                 height="100">
                                         </a>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @endforeach
+                        <div>
+                            {{ $orders->links() }}
+                        </div>
                 </div>
             </div>
         </div>

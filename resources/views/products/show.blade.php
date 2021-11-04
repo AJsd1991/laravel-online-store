@@ -20,15 +20,9 @@
         <div class="container px-6 mx-auto">
             <div class="md:flex md:items-center">
                 <div class="w-full h-full md:w-1/2 lg:h-full">
-                    @if (file_exists('storage/' . $product->image))
                         <img class="object-cover w-full h-full max-w-lg mx-auto rounded-md"
-                            src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="300"
+                            src="@if (file_exists('storage/' . $product->image)) {{ asset('storage/' . $product->image) }} @else {{ $product->image }} @endif" alt="{{ $product->name }}" width="300"
                             height="300">
-                    @else
-                        <img class="object-cover w-full h-full max-w-lg mx-auto rounded-md"
-                            src="{{ url($product->image) }}" alt="{{ $product->name }}">
-                    @endif
-
                 </div>
                 <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
                     <h3 class="text-lg text-gray-700 uppercase">{{ $product->name }}</h3>

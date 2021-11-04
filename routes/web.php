@@ -5,7 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StoreController;
-use App\Models\Coupon;
+use App\Models\Comment;
 use App\Service\Storage\Contracts\StorageInterface;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
@@ -37,7 +37,7 @@ Route::group([
     'prefix' => 'dashboard',
 ], function () {
 
-    Route::view('/', 'users.dashboard')->name('dashboard');
+    Route::get('/', App\Http\Controllers\User\DashboardController::class)->name('dashboard');
     Route::resource('/my-orders', App\Http\Controllers\User\OrderController::class)
     ->only('index', 'show');
 
@@ -86,6 +86,8 @@ Route::post('products/{product:slug}/comment', [CommentController::class, 'store
 
 // test
 Route::get('test', function(){
+    $comment = Comment::find(1);
+    return $comment->like();
     return hash_equals(session()->token(), '3QmZFztS0MMiSYCu1q2glRy4THnFm5cNQq0ob34w');
     session()->all();
     session()->forget('coupon');

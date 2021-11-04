@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Likeable;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, Likeable;
 
     protected $fillable = [
         'user_id',
@@ -23,5 +24,10 @@ class Comment extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }

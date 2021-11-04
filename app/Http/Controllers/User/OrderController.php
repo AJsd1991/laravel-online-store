@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,9 +15,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = auth()->user()->orders;
+        $orders = Order::query()->where('user_id', auth()->id())->paginate(4);
         
-        return view('users.orders', compact('orders'));
+        return view('users.orders.index', compact('orders'));
     }
 
     /**
@@ -27,7 +28,10 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+        $orderItems = $order->products;
+
+        return view('users.orders.show', compact('order', 'orderItems'));
     }
 
 }
