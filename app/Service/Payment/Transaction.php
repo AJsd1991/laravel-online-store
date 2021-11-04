@@ -32,6 +32,9 @@ class Transaction
 
         $order = $this->makeOrder();
 
+        $order->generateInvoice();
+
+
         $payment = $this->makePayment($order);
 
         DB::commit();
@@ -45,7 +48,13 @@ class Transaction
         $this->cart->clear();
         
         session()->forget('coupon');
+        
         return $order;
+    }
+
+    public function completePayment(Order $order)
+    {
+        return $this->gatewayFactory()->pay($order, $order->amount);
     }
 
     public function verify()
@@ -68,6 +77,8 @@ class Transaction
 
     private function gatewayFactory()
     {
+        if (!request()->has('gateway')) return resolve(Saman::class);
+
         $gateway = [
             'saman' => Saman::class,
             'pasargad' => Pasargad::class

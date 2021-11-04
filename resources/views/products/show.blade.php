@@ -123,10 +123,6 @@
         @forelse ($product->comments as $comment)
             <x-comment :comment="$comment"/>
         @empty
-        <p class="font-semibold">
-            <a href="/register" class="text-blue-400 hover:underline">Register</a> or
-            <a href="/login" class="text-blue-400 hover:underline">log in</a> to leave a comment.
-        </p>
         <p>
             There is no Comment yet!
         </p>

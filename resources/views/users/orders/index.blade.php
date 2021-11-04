@@ -16,7 +16,7 @@
                                     <p class="font-bold">{{ $order->created_at->format('m/d/Y') }} -
                                         {{ $order->id }}</p>
                                     <hr class="my-1">
-                                    <p>Total Amount : <span class="font-bold">${{ $order->amount }}</span></p>
+                                    <p>Total Amount : <span class="font-bold">${{ number_format($order->amount, 2) }}</span></p>
                                 </div>
                                 <div class="flex items-center">
                                     <a href="{{ route('my-orders.show', $order) }}" class="pr-2 text-blue-500">
@@ -29,17 +29,24 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="p-6 border-2">
-                                <p class="font-bold">
-                                    Order Items
-                                </p>
-                                <div class="flex gap-4 mt-4 auto-rows-auto">
-                                    @foreach ($order->products as $product)
-                                        <a href="{{ route('store.show', ['product' => $product->slug]) }}">
-                                            <img src="@if (file_exists('storage/' . $product->image)) {{ asset('storage/' . $product->image) }} @else {{ $product->image }} @endif" alt="{{ $product->name }}" width="100"
-                                                height="100">
-                                        </a>
-                                    @endforeach
+                            <div class="flex justify-between p-6 border-2 border-b-0">
+                                <div>
+                                    <p class="font-bold">
+                                        Order Items
+                                    </p>
+                                    <div class="flex gap-4 mt-4 auto-rows-auto">
+                                        @foreach ($order->products as $product)
+                                            <a href="{{ route('store.show', ['product' => $product->slug]) }}">
+                                                <img src="@if (file_exists('storage/' . $product->image)) {{ asset('storage/' . $product->image) }} @else {{ $product->image }} @endif" alt="{{ $product->name }}" width="100"
+                                                    height="100">
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="flex items-end">
+                                    <a href="{{ route('invoices.show', $order) }}" class="pr-2 text-blue-500">
+                                        <button class="btn">Download Invoice</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

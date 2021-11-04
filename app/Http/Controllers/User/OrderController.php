@@ -4,10 +4,17 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Service\Payment\Transaction;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    private $transaction;
+
+    public function __construct(Transaction $transaction)
+    {
+        $this->transaction = $transaction;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +39,13 @@ class OrderController extends Controller
         $orderItems = $order->products;
 
         return view('users.orders.show', compact('order', 'orderItems'));
+    }
+
+    public function completePayment($id)
+    {
+        $order = Order::find($id);
+
+        return $this->transaction->completePayment($order);
     }
 
 }

@@ -59,7 +59,7 @@
                             <tr>
                                 <td class="hidden pb-4 md:table-cell">
                                     <a href="{{ route('store.show', ['product' => $item->slug]) }}">
-                                        <img src="{{ $item->image }}" class="w-20 rounded" alt="Thumbnail">
+                                        <img src="@if (file_exists('storage/' . $item->image)) {{ asset('storage/' . $item->image) }} @else {{ $item->image }} @endif" alt="{{ $item->name }}" class="w-20 rounded" alt="Thumbnail">
                                     </a>
                                 </td>
                                 <td>

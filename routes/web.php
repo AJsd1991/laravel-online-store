@@ -40,10 +40,10 @@ Route::group([
     Route::get('/', App\Http\Controllers\User\DashboardController::class)->name('dashboard');
     Route::resource('/my-orders', App\Http\Controllers\User\OrderController::class)
     ->only('index', 'show');
-
-    // Route::resource('posts', App\Http\Controllers\PostController::class)
-    // ->except('show');
-
+    Route::get('/my-orders/pay/{id}', [App\Http\Controllers\User\OrderController::class, 'completePayment'])
+    ->name('my-orders.pay');
+    Route::resource('/invoices', App\Http\Controllers\User\InvoiceController::class)
+    ->only('show');
 });
 
 require __DIR__.'/auth.php';
