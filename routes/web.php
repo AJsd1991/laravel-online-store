@@ -44,6 +44,8 @@ Route::group([
     ->name('my-orders.pay');
     Route::resource('/invoices', App\Http\Controllers\User\InvoiceController::class)
     ->only('show');
+    Route::resource('/users', App\Http\Controllers\User\UserController::class)
+    ->only('edit', 'update');
 });
 
 require __DIR__.'/auth.php';

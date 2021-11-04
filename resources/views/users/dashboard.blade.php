@@ -31,7 +31,7 @@
                             </tr>
                         </table>
                         <div class="m-4 text-center">
-                            <a href="">
+                            <a href="{{ route('users.edit', auth()->id()) }}">
                                 <button class="btn">Edit Info</button>
                             </a>
                         </div>

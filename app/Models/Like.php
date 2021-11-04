@@ -11,7 +11,7 @@ class Like extends Model
 
     protected $fillable = [
         'user_id',
-        'liked'
+        'liked',
     ];
 
     public function user()
