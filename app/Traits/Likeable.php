@@ -15,7 +15,7 @@ trait Likeable
 
     public function dislike($user = null)
     {
-        return $this->like($user, false);
+        return $this->like(false, $user);
     }
 
     public function count_like($liked = true)

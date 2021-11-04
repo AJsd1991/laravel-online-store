@@ -53,6 +53,8 @@ SVG Icons - svgicons.sparkk.fr
         }
 
     </style>
+        @livewireStyles
+    
 </head>
 
 <body class="text-base leading-normal tracking-normal text-gray-600 bg-white work-sans">
@@ -63,7 +65,10 @@ SVG Icons - svgicons.sparkk.fr
     {{ $slot }}
 
     <x-footer />
+    
+    @livewireScripts
 
+    
 </body>
 
 </html>

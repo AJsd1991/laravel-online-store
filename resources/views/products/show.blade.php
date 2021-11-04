@@ -30,21 +30,7 @@
                     <hr class="my-3">
                     <div class="mt-2">
                         <label class="text-sm text-gray-700" for="count">Count:</label>
-                        <div class="flex items-center mt-1">
-                            <button class="text-gray-500 focus:outline-none focus:text-gray-600">
-                                <svg class="w-5 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </button>
-                            <span class="mx-2 text-lg text-gray-700">20</span>
-                            <button class="text-gray-500 focus:outline-none focus:text-gray-600">
-                                <svg class="w-5 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </button>
-                        </div>
+                        <livewire:cart.counter>
                     </div>
                     <div class="mt-3">
                         <label class="text-sm text-gray-700" for="count">Color:</label>
@@ -90,7 +76,7 @@
                     @foreach ($moreProducts as $item)
                         <div class="w-full max-w-sm mx-auto overflow-hidden rounded-md shadow-md">
                             <div class="flex items-end justify-end w-full h-56 bg-cover"
-                                style="background-image: url({{ $item->image }})">
+                                style="background-image: url(@if (file_exists('storage/' . $item->image)) {{ asset('storage/' . $item->image) }} @else {{ $item->image }} @endif" alt="{{ $item->name }})">
                                 <button
                                     class="p-2 mx-5 -mb-4 text-white bg-blue-600 rounded-full hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                                     <a href="{{ route('cart.add', ['product' => $item->id]) }}">

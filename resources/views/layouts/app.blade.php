@@ -37,6 +37,9 @@ SVG Icons - svgicons.sparkk.fr
             stroke-width: 1;
         }
         </style>
+        
+        @livewireStyles
+        
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -54,5 +57,8 @@ SVG Icons - svgicons.sparkk.fr
                 {{ $slot }}
             </main>
         </div>
+        
+        @livewireScripts
+        
     </body>
 </html>

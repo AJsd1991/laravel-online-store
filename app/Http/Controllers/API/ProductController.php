@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,7 +15,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+
+        return response()->json([
+            'data' => $products,
+            'meta' => [
+                'Count' => $products->count(),
+            ]
+        ], 200);
     }
 
     /**
@@ -24,9 +33,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -35,7 +43,11 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        return response()->json([
+            'data' => $product
+        ], 200);
     }
 
     /**
