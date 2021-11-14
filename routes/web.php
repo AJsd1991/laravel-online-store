@@ -24,6 +24,9 @@ use TCG\Voyager\Facades\Voyager;
 // landing page
 Route::get('/', App\Http\Controllers\HomeController::class)
     ->name('home.landing');
+// Way 2
+// Route::get('/', 'App\Http\Controllers\HomeController')
+//     ->name('home.landing');
     
 // products
 Route::get('/products', [StoreController::class, 'index'])

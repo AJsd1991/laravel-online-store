@@ -65,11 +65,13 @@ class Product extends Model
 
     public function getPriceAttribute($price)
     {
-        $coupons = $this->category->validCoupons();
-        if ($coupons->isNotEmpty()) {
-            $discountCalculator = resolve(DiscountCalculator::class);
-            
-            return $discountCalculator->discountedPrice($coupons->first(), $price);
+        if ($this->category !== null) {
+            $coupons = $this->category->validCoupons();
+            if ($coupons->isNotEmpty()) {
+                $discountCalculator = resolve(DiscountCalculator::class);
+                
+                return $discountCalculator->discountedPrice($coupons->first(), $price);
+            }
         }
 
         return $price;
