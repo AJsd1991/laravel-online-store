@@ -42,7 +42,7 @@ return [
     */
 
     'models' => [
-        //'namespace' => 'App\\Models\\',
+        'namespace' => 'App\\Models\\',
     ],
 
     /*
@@ -104,13 +104,13 @@ return [
         /*
          * Select default language
          */
-        'default' => 'en',
+        'default' => 'fa',
 
         /*
          * Select languages that are supported.
          */
         'locales' => [
-            'en',
+            'fa',
             //'pt',
         ],
     ],
@@ -183,7 +183,7 @@ return [
     |
     */
 
-    'primary_color' => '#22A7F0',
+    'primary_color' => '#ef394e',
 
     'show_dev_tips' => true, // Show development tip "How To Use:" in Menu and Settings
 

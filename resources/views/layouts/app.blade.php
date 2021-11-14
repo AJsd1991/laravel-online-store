@@ -15,6 +15,31 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+
+        <style>
+                    /* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+        .svg-icon {
+            width: 1em;
+            height: 1em;
+        }
+
+        .svg-icon path,
+        .svg-icon polygon,
+        .svg-icon rect {
+            fill: #4691f6;
+        }
+
+        .svg-icon circle {
+            stroke: #4691f6;
+            stroke-width: 1;
+        }
+        </style>
+        
+        @livewireStyles
+        
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -22,7 +47,7 @@
 
             <!-- Page Heading -->
             <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
             </header>
@@ -32,5 +57,9 @@
                 {{ $slot }}
             </main>
         </div>
+        
+        @livewireScripts
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
     </body>
 </html>

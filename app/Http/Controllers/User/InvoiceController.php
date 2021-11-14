@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Product;
+use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class LandingPageController extends Controller
+class InvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,7 @@ class LandingPageController extends Controller
      */
     public function index()
     {
-        $products = Product::inRandomOrder()->take(5)->get();
-
-        return view('landing-page')->with('products', $products);
+        //
     }
 
     /**
@@ -48,7 +47,8 @@ class LandingPageController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+        return $order->downloadInvoice();
     }
 
     /**

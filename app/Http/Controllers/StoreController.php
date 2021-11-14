@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Slide;
+use App\Service\Cart\Cart;
+use App\Service\Storage\Contracts\StorageInterface;
 use Illuminate\Http\Request;
+use TCG\Voyager\Models\Category;
 
 class StoreController extends Controller
 {
@@ -13,11 +17,30 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        // show all products
-        $products = Product::inRandomOrder()->take(10)->get();
+    {   
 
-        return view('products')->with('products', $products);
+
+        
+
+        if (request()->category) {
+            $products = Product::with('category')->whereHas('category', function ($query){
+                $query->where('slug', request()->category);
+            })->paginate(12);
+
+            $categoryName = Category::query()->where('slug', request()->category)->first()->name;
+
+
+        } else {
+            // show all products
+            $products = Product::latest()->paginate(12);
+            $categoryName = 'All Products';
+        }
+
+        return view('products.index')->with([
+            'products' => $products,
+            'categoryName' => $categoryName,
+            
+        ]);
     }
 
     /**
@@ -51,12 +74,17 @@ class StoreController extends Controller
     {
         // show one product
         $product = Product::where('slug', $slug)->firstOrFail();
+        // show all categories
+        $categories = Category::all();
+
+        
 
         $moreProducts = Product::where('slug', '!=' , $slug)->inRandomOrder()->take(4)->get();
 
-        return view('product')->with([
+        return view('products.show')->with([
             'product' => $product,
             'moreProducts' => $moreProducts,
+            'categories' => $categories,
         ]);
     }
 

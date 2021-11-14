@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use TCG\Voyager\Models\Category;
 
 class CreateProductsTable extends Migration
 {
@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->string('details')->nullable();
             $table->integer('price');
+            $table->integer('stock');
             $table->text('description');
             $table->string('image');
             $table->text('images');
