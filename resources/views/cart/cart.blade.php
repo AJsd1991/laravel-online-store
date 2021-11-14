@@ -187,4 +187,17 @@
         </div>
     </div>
 
+    <script>
+        @if (session('error'))
+            document.addEventListener("DOMContentLoaded",function ($event){
+            swal.fire({
+            title: ' Oops!',
+            icon: 'error',
+            text: '{{ session('error') }}',
+            confirmButtonText: 'OK'
+            })
+            });
+        @endif
+    </script>
+
 </x-store-layout>

@@ -67,6 +67,7 @@ SVG Icons - svgicons.sparkk.fr
     <x-footer />
     
     @livewireScripts
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     
 </body>

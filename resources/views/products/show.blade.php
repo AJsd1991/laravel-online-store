@@ -20,9 +20,8 @@
         <div class="container px-6 mx-auto">
             <div class="md:flex md:items-center">
                 <div class="w-full h-full md:w-1/2 lg:h-full">
-                        <img class="object-cover w-full h-full max-w-lg mx-auto rounded-md"
-                            src="@if (file_exists('storage/' . $product->image)) {{ asset('storage/' . $product->image) }} @else {{ $product->image }} @endif" alt="{{ $product->name }}" width="300"
-                            height="300">
+                    <img class="object-cover w-full h-full max-w-lg mx-auto rounded-md" src="@if (file_exists('storage/' . $product->image)) {{ asset('storage/' . $product->image) }} @else {{ $product->image }} @endif"
+                        alt="{{ $product->name }}" width="300" height="300">
                 </div>
                 <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
                     <h3 class="text-lg text-gray-700 uppercase">{{ $product->name }}</h3>
@@ -76,7 +75,7 @@
                     @foreach ($moreProducts as $item)
                         <div class="w-full max-w-sm mx-auto overflow-hidden rounded-md shadow-md">
                             <div class="flex items-end justify-end w-full h-56 bg-cover"
-                                style="background-image: url(@if (file_exists('storage/' . $item->image)) {{ asset('storage/' . $item->image) }} @else {{ $item->image }} @endif" alt="{{ $item->name }})">
+                                style="background-image: url(@if (file_exists('storage/' . $item->image)) {{ asset('storage/' . $item->image) }} @else {{ $item->image }} @endif)" alt="{{ $item->name }}">
                                 <button
                                     class="p-2 mx-5 -mb-4 text-white bg-blue-600 rounded-full hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                                     <a href="{{ route('cart.add', ['product' => $item->id]) }}">
@@ -107,11 +106,11 @@
         <hr>
         @include ('products.add-comment')
         @forelse ($product->comments as $comment)
-            <x-comment :comment="$comment"/>
+            <x-comment :comment="$comment" />
         @empty
-        <p>
-            There is no Comment yet!
-        </p>
+            <p>
+                There is no Comment yet!
+            </p>
         @endforelse
     </section>
 
