@@ -21,6 +21,7 @@
         "tailwindcss": "^2.2.16"
     },
     "dependencies": {
-        "daisyui": "^1.16.0"
+        "daisyui": "^1.16.0",
+        "sweetalert2": "^11.1.9"
     }
 }
