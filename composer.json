@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.7",
         "niklasravnsborg/laravel-pdf": "^4.1",
-        "tcg/voyager": "^1.5"
+        "tcg/voyager": "^1.5",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
